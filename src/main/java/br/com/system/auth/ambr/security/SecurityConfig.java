@@ -34,8 +34,10 @@ public class SecurityConfig {
                                                    UserDetailsServiceImpl userDetailsService) throws Exception {
         return http
                 .csrf().disable()
+                .cors() // <-- ADICIONE ISSO
+                .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/auth/**", "/auth/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
